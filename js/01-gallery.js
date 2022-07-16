@@ -5,9 +5,9 @@ console.log(galleryItems);
 
 // 1. Создаем рендерную разметку
 
-const galleryEl = document.querySelector('.gallery');
+const gallery = document.querySelector('.gallery');
 
-const createGalleryCardsMarkup = gallery => gallery.map(
+const createGalleryCardsMarkup = items => items.map(
     ({ preview, original, description }) => 
     `<div class="gallery__item">
         <a class="gallery__link" href="large-image.jpg"> 
@@ -22,14 +22,33 @@ const createGalleryCardsMarkup = gallery => gallery.map(
 ).join('');
 
 const galleryItemsCards = createGalleryCardsMarkup(galleryItems);
+gallery.insertAdjacentHTML('beforeend', galleryItemsCards);
 
-galleryEl.insertAdjacentHTML('beforeend', galleryItemsCards);
-//console.log(galleryItemsCards)
+// 2. Делегирование 
+gallery.addEventListener('click', clickHandler);
+let instance = null;
+function clickHandler(event) {
+    event.preventDefault();
+ 
+    const targetElement = event.target;
+    const targetValue = targetElement.dataset.source;
 
-// gallery__link навесить 
-/*
-1 нужно сделать розметку по массиву
-2 при рендери галереи нужно поставить в розметку правильные поля
-3 повесить клик на галерею используя делегирование
-4 вызначиты елемент на який кликнули через evtyt.target
-5 о считати дани с атрибута
+    if (!targetValue) {
+        return;
+    }
+
+    const instance = basicLightbox.create(
+        `<img src="${targetValue}" width="800" height="600">`, {
+        onShow: () => window.addEventListener("keydown", escClick),
+        onClose: () => window.removeEventListener("keydown", escClick),
+    });
+    instance.show();
+}
+    
+    function escClick(event) {
+        if (event.code === 'Escape') {
+            instance.click();
+        }
+      }
+
+ 
