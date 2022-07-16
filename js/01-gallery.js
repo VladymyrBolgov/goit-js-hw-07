@@ -24,9 +24,11 @@ const createGalleryCardsMarkup = items => items.map(
 const galleryItemsCards = createGalleryCardsMarkup(galleryItems);
 gallery.insertAdjacentHTML('beforeend', galleryItemsCards);
 
-// 2. Делегирование 
+
 gallery.addEventListener('click', clickHandler);
-let instance = null;
+
+//et instance = null;
+
 function clickHandler(event) {
     event.preventDefault();
  
