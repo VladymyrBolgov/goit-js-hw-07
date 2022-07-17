@@ -36,8 +36,8 @@ function clickHandler(event) {
         return;
     }
 
-
     let instance = null;
+    
     instance = basicLightbox.create(
         `<img src="${targetValue}" width="800" height="600">`, {
         onShow: () => window.addEventListener("keydown", clickEscape),
