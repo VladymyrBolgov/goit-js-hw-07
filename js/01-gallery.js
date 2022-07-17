@@ -24,14 +24,16 @@ const createGalleryCardsMarkup = items => items.map(
 const galleryItemsCards = createGalleryCardsMarkup(galleryItems);
 gallery.insertAdjacentHTML('beforeend', galleryItemsCards);
 
+// 2
 gallery.addEventListener('click', clickHandler);
 
 function clickHandler(event) {
     event.preventDefault();
  
-    const targetElement = event.target;
-    const targetValue = targetElement.dataset.source;
-
+   // const targetElement = event.target;
+   // const targetValue = targetElement.dataset.source;
+    const targetValue = event.target.dataset.source;
+    
     if (!targetValue) {
         return;
     }
@@ -43,7 +45,7 @@ function clickHandler(event) {
     });
     instance.show();
 }
-    
+    // 3
     function clickEscape(event) {
         if (event.code === 'Escape') {
             instance.close();
