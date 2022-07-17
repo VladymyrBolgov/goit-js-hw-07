@@ -29,7 +29,6 @@ gallery.addEventListener('click', clickHandler);
 
 function clickHandler(event) {
     event.preventDefault();
- 
    // const targetElement = event.target;
    // const targetValue = targetElement.dataset.source;
     const targetValue = event.target.dataset.source;
@@ -40,14 +39,15 @@ function clickHandler(event) {
 
     const instance = basicLightbox.create(
         `<img src="${targetValue}" width="800" height="600">`, {
-        onShow: () => window.addEventListener("keydown", clickEscape),
-        onClose: () => window.removeEventListener("keydown", clickEscape),
     });
     instance.show();
-}
-    // 3
+    }
+    // 3 Выход через Esc
+    window.addEventListener('keydown', clickEscape);
+    
     function clickEscape(event) {
         if (event.code === 'Escape') {
+            window.removeEventListener('keydown', clickEscape)
             instance.close();
         }
       }
