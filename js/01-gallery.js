@@ -24,10 +24,7 @@ const createGalleryCardsMarkup = items => items.map(
 const galleryItemsCards = createGalleryCardsMarkup(galleryItems);
 gallery.insertAdjacentHTML('beforeend', galleryItemsCards);
 
-
 gallery.addEventListener('click', clickHandler);
-
-//et instance = null;
 
 function clickHandler(event) {
     event.preventDefault();
@@ -39,17 +36,18 @@ function clickHandler(event) {
         return;
     }
 
-    const instance = basicLightbox.create(
+    let instance = null;
+    instance = basicLightbox.create(
         `<img src="${targetValue}" width="800" height="600">`, {
-        onShow: () => window.addEventListener("keydown", escClick),
-        onClose: () => window.removeEventListener("keydown", escClick),
+        onShow: () => window.addEventListener("keydown", clickEscape),
+        onClose: () => window.removeEventListener("keydown", clickEscape),
     });
     instance.show();
 }
     
-    function escClick(event) {
+    function clickEscape(event) {
         if (event.code === 'Escape') {
-            instance.click();
+            instance.close();
         }
       }
 
